@@ -1,34 +1,65 @@
 import React from 'react';
+// import axios from 'axios';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import { ImageGallerySection } from './ImageGallery.styled';
-import { addFoto } from 'components/API/api';
+// import Modal from 'components/Modal/Modal';
+// import { addFoto } from 'components/API/api';
 
-class ImageGallery extends React.Component {
-  state = {
-    loading: false,
-    fotos: [],
-  };
+// class ImageGallery extends React.Component {
+//   state = {
+//     loading: false,
+//     foto: null,
+//   };
 
-  //  componentDidMount() {
-  //    this.setState({ fotos: api() })
-  //  }
-  addFotos = () => {
-    addFoto().then(hits => console.log(hits));
-    console.log(addFoto());
-  };
+//   componentDidUpdate(prevProps, prevState) {
+//     const prevFoto = prevProps.searchName;
+//     const currentFoto = this.props.searchName;
+//     if (prevFoto !== currentFoto) {
+//       axios
+//         .get(
+//           `https://pixabay.com/api/?q=${currentFoto}&key=27518443-a5857259e188e1fcb2dbeb9ca&image_type=photo&orientation=horizontal&per_page=12`
+//         )
+//         .then(({ data }) => this.setState({ foto: data.hits }));
+//     }
+//   }
 
-  render() {
-    // console.log(this.addFotos());
+//   render() {
+//     const { foto } = this.state;
+//     if (!foto) {
+//       return;
+//     }
+//     return (
+//       <ImageGallerySection>
+//         {foto.map(item => (
+//           <ImageGalleryItem
+//             key={item.id}
+//             fotoCard={item.webformatURL}
+//             fotoModal={item.largeImageURL}
+//             modalOpen={this.props.modalOpen}
+//           />
+//         ))}
+//       </ImageGallerySection>
+//     );
+//   }
+// }
+// export default ImageGallery;
 
-    const { fotos } = this.state;
-    return (
-      <ImageGallerySection>
-        {fotos.map(item => (
-          <ImageGalleryItem key={item.id} modalOpen={this.props.modalOpen} />
-        ))}
-      </ImageGallerySection>
-    );
-  }
-}
+const ImageGallery = ({ fotoArray, modalOpen }) => {
+  return (
+    <ImageGallerySection>
+      {fotoArray.map(item => (
+        <ImageGalleryItem
+          key={item.id}
+          fotoCard={item.webformatURL}
+          // fotoModal={item.largeImageURL}
+          modalOpen={modalOpen}
+        >
+          {/* <Modal>
+            <img src={item.webformatURLl} alt="" />
+          </Modal> */}
+        </ImageGalleryItem>
+      ))}
+    </ImageGallerySection>
+  );
+};
 export default ImageGallery;
-// api().then(({ hits }) => console.log(hits));

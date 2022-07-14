@@ -4,6 +4,12 @@ import { Overlay, ModalWindow } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 export default class Modal extends Component {
+  // state = {
+  //   fotoModal: null,
+  // };
+  // addFotoModal() {
+  //   this.setState({fotoModal:})
+  // }
   componentDidMount() {
     window.addEventListener('keydown', this.handlKeydown);
   }
@@ -21,11 +27,13 @@ export default class Modal extends Component {
     }
   };
   render() {
+    // const { fotoModal } = this.props;
+    console.log(this.props);
     return createPortal(
       <Overlay onClick={this.clickOnOverlay}>
         <ModalWindow>
-          {this.props.children}
-          {/* <img src="" alt="" /> */}
+          {/* {this.props.children} */}
+          {/* <img src={fotoModal} alt="" /> */}
         </ModalWindow>
       </Overlay>,
       modalRoot

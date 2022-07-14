@@ -1,4 +1,5 @@
 import React from 'react';
+import { Notify } from 'notiflix';
 import { BiSearch } from 'react-icons/bi';
 import {
   SearchbarSection,
@@ -20,8 +21,8 @@ class Searchbar extends React.Component {
   hendelSubmit = evt => {
     evt.preventDefault();
     const { search } = this.state;
-    if (search === '') {
-      return;
+    if (search.trim() === '') {
+      return Notify.warning('Please enter name foto');
     }
     this.props.onSubmit(search);
     this.setState({ search: '' });
