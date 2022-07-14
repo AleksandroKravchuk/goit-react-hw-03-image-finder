@@ -7,7 +7,13 @@ import { Component } from 'react';
 
 class App extends Component {
   state = {
+    value: '',
     showModal: false,
+  };
+  onSubmit = search => {
+    console.log('zsavzdbsabsbesbdrsdb');
+    // console.log(search);
+    // this.setState({ value: search });
   };
   toggleModal = () => {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
@@ -16,7 +22,7 @@ class App extends Component {
     const { showModal } = this.state;
     return (
       <AppStyle>
-        <Searchbar></Searchbar>
+        <Searchbar onSubmit={this.onSubmit}></Searchbar>
         <ImageGallery modalOpen={this.toggleModal}></ImageGallery>
         <Button></Button>
         {showModal && (
