@@ -15,7 +15,7 @@ class App extends Component {
   state = {
     searchName: '',
     totalHits: null,
-    // fotoModal: null,
+    fotoModal: null,
     loading: false,
     showModal: false,
     page: 1,
@@ -24,7 +24,7 @@ class App extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { totalHits, foto } = this.state;
+    // const { totalHits, foto } = this.state;
     const prevPage = prevState.page;
     const prevFoto = prevState.searchName;
     const currentPage = this.state.page;
@@ -50,11 +50,11 @@ class App extends Component {
         .finally(() => this.setState({ loading: false }));
     }
 
-    if (foto.length >= totalHits && foto.length !== 0) {
-      Notify.warning(
-        "We're sorry, but you've reached the end of search results."
-      );
-    }
+    // if (foto.length >= totalHits && foto.length !== 0) {
+    //   Notify.warning(
+    //     "We're sorry, but you've reached the end of search results."
+    //   );
+    // }
   }
 
   onSubmitName = searchName => {
@@ -67,11 +67,20 @@ class App extends Component {
       this.setState({ perPages: false });
     }
   };
-  toggleModal = () => {
+  toggleModal = evt => {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
+    if (!this.state.showModal) {
+      const itemId = evt.currentTarget.id;
+      this.state.foto.map(item => {
+        if (item.id === Number(itemId)) {
+          this.setState({ fotoModal: item.largeImageURL });
+        }
+      });
+    }
   };
   render() {
-    const { showModal, searchName, foto, loading, perPages } = this.state;
+    const { showModal, searchName, foto, loading, perPages, fotoModal } =
+      this.state;
 
     return (
       <AppStyle>
@@ -94,7 +103,7 @@ class App extends Component {
         )}
         {showModal && (
           <Modal onClose={this.toggleModal}>
-            {/* <img src={fotoModal} alt="" /> */}
+            <img src={fotoModal} alt="" />
           </Modal>
         )}
       </AppStyle>

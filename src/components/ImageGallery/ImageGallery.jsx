@@ -9,6 +9,7 @@ const ImageGallery = ({ fotoArray, modalOpen }) => {
       {fotoArray.map(item => (
         <ImageGalleryItem
           key={item.id}
+          id={item.id}
           fotoCard={item.webformatURL}
           // fotoModal={item.largeImageURL}
           modalOpen={modalOpen}
