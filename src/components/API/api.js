@@ -18,9 +18,12 @@ export default class ApiService {
         per_page: this.per_page,
         page:  this.page,
         
-})
-    try {
-      const {data} =await axios.get(`https://pixabay.com/api/?${options}`);
+    })
+   
+   try {
+     
+     const { data } = await axios.get(`https://pixabay.com/api/?${options}`);
+     
       this.page += 1;
       return data; }
       catch{Notify.failure("Ooooops somthing went wrong");}        
