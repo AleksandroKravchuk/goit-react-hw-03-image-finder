@@ -4,7 +4,7 @@ import { ImageGalleryIt, Image } from './ImageGalleryItem.styled';
 
 const ImageGalleryItem = ({ modalOpen, fotoCard, id }) => (
   <ImageGalleryIt>
-    <Image id={id} src={fotoCard} alt="" onClick={modalOpen} />
+    <Image id={id} src={fotoCard} alt="foto" onClick={modalOpen} />
   </ImageGalleryIt>
 );
 ImageGalleryItem.propTypes = {

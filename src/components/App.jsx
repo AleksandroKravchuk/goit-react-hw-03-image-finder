@@ -49,7 +49,6 @@ class App extends Component {
         })
         .finally(() => this.setState({ loading: false }));
     }
-
     // if (foto.length >= totalHits && foto.length !== 0) {
     //   Notify.warning(
     //     "We're sorry, but you've reached the end of search results."
@@ -104,7 +103,7 @@ class App extends Component {
         )}
         {showModal && (
           <Modal onClose={this.toggleModal}>
-            <img src={fotoModal} alt="" />
+            <img src={fotoModal} alt="foto" />
           </Modal>
         )}
       </AppStyle>
