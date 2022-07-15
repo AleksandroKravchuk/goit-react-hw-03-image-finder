@@ -70,12 +70,13 @@ class App extends Component {
   toggleModal = evt => {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
     if (!this.state.showModal) {
-      // const itemId = evt.currentTarget.id;
-      // this.state.foto.map(item => {
-      //   if (item.id === Number(itemId)) {
-      //     this.setState({ fotoModal: item.largeImageURL });
-      //   }
-      // });
+      const itemId = evt.currentTarget.id;
+      // eslint-disable-next-line array-callback-return
+      this.state.foto.map(item => {
+        if (item.id === Number(itemId)) {
+          this.setState({ fotoModal: item.largeImageURL });
+        }
+      });
     }
   };
   render() {
