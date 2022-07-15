@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Notify } from 'notiflix';
 import { BiSearch } from 'react-icons/bi';
 import {
@@ -6,7 +7,6 @@ import {
   SearchForm,
   SearchFormButton,
   SearchFormInput,
-  // SearchFormButtonLabel,
 } from './Searchbar.styled';
 
 class Searchbar extends React.Component {
@@ -48,4 +48,7 @@ class Searchbar extends React.Component {
     );
   }
 }
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 export default Searchbar;

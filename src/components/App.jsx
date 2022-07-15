@@ -3,7 +3,7 @@ import React from 'react';
 import { Component } from 'react';
 import { Notify } from 'notiflix';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-// import { Oval } from 'react-loader-spinner';
+import { Oval } from 'react-loader-spinner';
 import ApiService from './API/api';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
@@ -16,72 +16,80 @@ class App extends Component {
     searchName: '',
     totalHits: null,
     // fotoModal: null,
-    // loading: false,
+    loading: false,
     showModal: false,
-    foto: null,
+    page: 1,
+    foto: [],
+    perPages: true,
   };
 
   componentDidUpdate(prevProps, prevState) {
     const { totalHits, foto } = this.state;
+    const prevPage = prevState.page;
     const prevFoto = prevState.searchName;
+    const currentPage = this.state.page;
     const currentFoto = this.state.searchName;
-    if (prevFoto !== currentFoto) {
+    if (prevFoto !== currentFoto || prevPage !== currentPage) {
       apiData.query = currentFoto.trim();
-      apiData.resetPage();
+      apiData.setAddNewPage(currentPage);
 
-      apiData.fetchImages().then(({ hits, totalHits }) => {
-        // <Oval color="#00BFFF" height={80} width={80} />;
-        this.setState({ foto: hits, totalHits });
-        if (totalHits === 0) {
-          Notify.failure(
-            'Sorry, there are no images matching your search query. Please try again.'
-          );
-        }
-      });
+      this.setState({ loading: true });
+      apiData
+        .fetchImages()
+        .then(({ hits, totalHits }) => {
+          this.setState(prevState => ({
+            foto: [...prevState.foto, ...hits],
+            totalHits: totalHits,
+          }));
+          if (totalHits === 0) {
+            Notify.failure(
+              'Sorry, there are no images matching your search query. Please try again.'
+            );
+          }
+        })
+        .finally(() => this.setState({ loading: false }));
     }
 
-    // if (
-    //   foto !== null &&
-    //   totalHits !== 0 &&
-    //   foto.length >= totalHits &&
-    //   foto.length !== 0
-    // ) {
-
-    //   Notify.warning(
-    //     "We're sorry, but you've reached the end of search results."
-    //   );
-    // }
+    if (foto.length >= totalHits && foto.length !== 0) {
+      Notify.warning(
+        "We're sorry, but you've reached the end of search results."
+      );
+    }
   }
 
   onSubmitName = searchName => {
-    this.setState({ searchName });
+    this.setState({ searchName, page: 1, foto: [], perPages: true });
   };
   onClickLoadMore = () => {
-    apiData
-      .fetchImages()
-      .then(({ hits }) =>
-        this.setState(prevState => ({ foto: [...prevState.foto, ...hits] }))
-      );
+    this.setState(prevState => ({ page: prevState.page + 1 }));
+    const allPages = Math.ceil(this.state.totalHits / apiData.getPer_page());
+    if (this.state.page + 1 >= allPages) {
+      this.setState({ perPages: false });
+    }
   };
   toggleModal = () => {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
   render() {
-    const { showModal, searchName, foto } = this.state;
+    const { showModal, searchName, foto, loading, perPages } = this.state;
 
     return (
       <AppStyle>
         <Searchbar onSubmit={this.onSubmitName}></Searchbar>
 
-        {foto && (
+        {foto !== [] && (
           <ImageGallery
             fotoArray={foto}
             searchName={searchName}
             modalOpen={this.toggleModal}
-          ></ImageGallery>
+          >
+            {' '}
+          </ImageGallery>
         )}
-
-        {foto && foto.length >= 12 && (
+        {loading && (
+          <Oval color="#00BFFF" height={80} width={80} margin-left="auto" />
+        )}
+        {foto.length >= 12 && perPages && (
           <Button onClickLoadMore={this.onClickLoadMore}></Button>
         )}
         {showModal && (

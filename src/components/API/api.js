@@ -17,29 +17,21 @@ export default class ApiService {
         orientation: "horizontal",
         per_page: this.per_page,
         page:  this.page,
-        
     })
-   
+  
    try {
-     
      const { data } = await axios.get(`https://pixabay.com/api/?${options}`);
-     
-      this.page += 1;
       return data; }
       catch{Notify.failure("Ooooops somthing went wrong");}        
   };
-  
-    resetPage() {
-       this.page = 1; 
-    }
     get query() {
       return  this.searchQuery;
     };
     set query(newQuery) {
         this.searchQuery = newQuery;
   };
-   getCurrentPage() {
-    return this.page;
+  setAddNewPage(newPage) {
+        this.page = newPage;
   };
   getPer_page() {
     return this.per_page;

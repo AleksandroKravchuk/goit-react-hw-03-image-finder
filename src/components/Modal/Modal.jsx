@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import { Overlay, ModalWindow } from './Modal.styled';
 
@@ -27,8 +28,6 @@ export default class Modal extends Component {
     }
   };
   render() {
-    // const { fotoModal } = this.props;
-    console.log(this.props);
     return createPortal(
       <Overlay onClick={this.clickOnOverlay}>
         <ModalWindow>
@@ -40,3 +39,6 @@ export default class Modal extends Component {
     );
   }
 }
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
