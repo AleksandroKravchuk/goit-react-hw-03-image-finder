@@ -82,7 +82,7 @@ class App extends Component {
   render() {
     const { showModal, searchName, foto, loading, perPages, fotoModal } =
       this.state;
-
+    const perPage = apiData.getPer_page();
     return (
       <AppStyle>
         <Searchbar onSubmit={this.onSubmitName}></Searchbar>
@@ -99,7 +99,7 @@ class App extends Component {
         {loading && (
           <Oval color="#00BFFF" height={80} width={80} margin-left="auto" />
         )}
-        {foto.length >= 12 && perPages && (
+        {foto.length >= perPage && perPages && (
           <Button onClickLoadMore={this.onClickLoadMore}></Button>
         )}
         {showModal && (
