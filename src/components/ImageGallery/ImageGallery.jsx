@@ -11,7 +11,6 @@ const ImageGallery = ({ fotoArray, modalOpen }) => {
           key={item.id}
           id={item.id}
           fotoCard={item.webformatURL}
-          // fotoModal={item.largeImageURL}
           modalOpen={modalOpen}
         ></ImageGalleryItem>
       ))}

@@ -4,7 +4,7 @@ import { Component } from 'react';
 import { Notify } from 'notiflix';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { Oval } from 'react-loader-spinner';
-import ApiService from './API/api';
+import ApiService from 'API/api';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
@@ -47,6 +47,7 @@ class App extends Component {
             );
           }
         })
+        .catch(error => Notify.failure('Ooooops somthing went wrong'))
         .finally(() => this.setState({ loading: false }));
     }
     // if (foto.length >= totalHits && foto.length !== 0) {

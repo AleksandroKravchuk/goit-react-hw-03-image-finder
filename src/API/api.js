@@ -1,6 +1,4 @@
 import axios from "axios";
-import { Notify } from 'notiflix';
-
 
 export default class ApiService {
     constructor() {
@@ -18,11 +16,8 @@ export default class ApiService {
         per_page: this.per_page,
         page:  this.page,
     })
-  
-   try {
      const { data } = await axios.get(`https://pixabay.com/api/?${options}`);
-      return data; }
-      catch{Notify.failure("Ooooops somthing went wrong");}        
+      return data;     
   };
     get query() {
       return  this.searchQuery;
